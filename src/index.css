@@ -1,7 +1,22 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   body {
     @apply bg-gray-50 text-gray-900;
+    color: #111827; /* Fallback text color */
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #111827; /* Ensure headings are visible */
+  }
+  
+  p, span, div {
+    color: inherit; /* Inherit from parent */
+  }
+  
+  button {
+    color: inherit; /* Buttons inherit text color */
   }
 }

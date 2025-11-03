@@ -1,1 +1,54 @@
-/* App-specific styles */
+/* App-specific styles with fallbacks for text visibility */
+
+/* Ensure all text is visible with explicit colors */
+.text-gray-900,
+.text-gray-800,
+.text-gray-700 {
+  color: #111827 !important;
+}
+
+.text-gray-600 {
+  color: #4b5563 !important;
+}
+
+.text-gray-500 {
+  color: #6b7280 !important;
+}
+
+/* Ensure buttons have visible text */
+button {
+  color: inherit;
+}
+
+button.bg-primary-600,
+button.bg-primary-700 {
+  color: #ffffff !important;
+}
+
+button.bg-green-600,
+button.bg-green-700 {
+  color: #ffffff !important;
+}
+
+button.bg-red-600,
+button.bg-red-700 {
+  color: #ffffff !important;
+}
+
+button.bg-gray-100,
+button.bg-gray-200 {
+  color: #111827 !important;
+}
+
+button.bg-gray-100.text-gray-500 {
+  color: #6b7280 !important;
+}
+
+/* Ensure labels and headings are visible */
+label {
+  color: #374151 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #111827 !important;
+}
