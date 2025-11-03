@@ -193,7 +193,7 @@ function App() {
             {/* Main Content Area - Side by Side */}
             <div className="flex gap-6 items-start flex-wrap lg:flex-nowrap">
               {/* Data Display - Left Side */}
-              <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-soft-lg overflow-hidden border border-gray-100 flex-1 min-w-[300px] animate-slide-up">
+              <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-soft-lg overflow-hidden border border-gray-100 flex-1 min-w-[300px] max-w-full animate-slide-up">
                 <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
                   <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                     <span className="w-2 h-2 bg-primary-500 rounded-full"></span>
@@ -204,17 +204,13 @@ function App() {
                   <div className="space-y-4">
                     {Object.entries(currentRow || {}).map(([key, value]) => {
                       if (key === 'id') return null
-                      const displayValue =
-                        typeof value === 'string' && value.length > 200
-                          ? `${value.substring(0, 200)}...`
-                          : value
                       return (
-                        <div key={key} className="border-b border-gray-100 pb-3 last:border-0 hover:bg-gray-50/50 p-2 -m-2 rounded transition-colors">
-                          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                        <div key={key} className="border-b border-gray-100 pb-4 last:border-0 hover:bg-gray-50/50 p-3 -m-3 rounded transition-colors">
+                          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
                             {key}
                           </div>
-                          <div className="text-sm text-gray-900 break-words leading-relaxed">
-                            {displayValue || <span className="text-gray-400 italic">(empty)</span>}
+                          <div className="text-sm text-gray-900 break-words break-all whitespace-pre-wrap leading-relaxed max-w-full overflow-wrap-anywhere">
+                            {value || <span className="text-gray-400 italic">(empty)</span>}
                           </div>
                         </div>
                       )

@@ -52,3 +52,24 @@ label {
 h1, h2, h3, h4, h5, h6 {
   color: #111827 !important;
 }
+
+/* Ensure text wrapping for long content */
+.break-words,
+.break-all {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.whitespace-pre-wrap {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* Ensure data fields don't truncate */
+[class*="text-sm"] {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
