@@ -59,16 +59,87 @@ function App() {
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === 'ArrowLeft' && currentIndex > 0) {
-        setCurrentIndex((prev) => Math.max(0, prev - 1))
-      } else if (event.key === 'ArrowRight' && currentIndex < data.length - 1) {
-        setCurrentIndex((prev) => Math.min(data.length - 1, prev + 1))
+      // Don't trigger shortcuts when typing in inputs
+      if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+        return
+      }
+
+      if (data.length === 0) return // No data loaded
+
+      const currentRow = data[currentIndex]
+      if (!currentRow) return
+
+      const rowId = currentRow.id
+
+      switch (event.key) {
+        case 'ArrowLeft':
+          if (currentIndex > 0) {
+            event.preventDefault()
+            setCurrentIndex((prev) => Math.max(0, prev - 1))
+          }
+          break
+        case 'ArrowRight':
+          if (currentIndex < data.length - 1) {
+            event.preventDefault()
+            setCurrentIndex((prev) => Math.min(data.length - 1, prev + 1))
+          }
+          break
+        case '1':
+          event.preventDefault()
+          // Toggle complaint label
+          {
+            const currentValue = getLabelValue(rowId, 'complaint')
+            const newValue = currentValue === 'complaint' ? 'not_complaint' : 'complaint'
+            handleLabelChange(rowId, 'complaint', newValue)
+          }
+          break
+        case '2':
+          event.preventDefault()
+          // Toggle test 1: cycle through unset -> pass -> fail -> unset
+          {
+            const currentValue = getLabelValue(rowId, 'test_1')
+            const newValue = currentValue === '' ? 'pass' : currentValue === 'pass' ? 'fail' : ''
+            handleLabelChange(rowId, 'test_1', newValue)
+          }
+          break
+        case '3':
+          event.preventDefault()
+          {
+            const currentValue = getLabelValue(rowId, 'test_2')
+            const newValue = currentValue === '' ? 'pass' : currentValue === 'pass' ? 'fail' : ''
+            handleLabelChange(rowId, 'test_2', newValue)
+          }
+          break
+        case '4':
+          event.preventDefault()
+          {
+            const currentValue = getLabelValue(rowId, 'test_3')
+            const newValue = currentValue === '' ? 'pass' : currentValue === 'pass' ? 'fail' : ''
+            handleLabelChange(rowId, 'test_3', newValue)
+          }
+          break
+        case '5':
+          event.preventDefault()
+          {
+            const currentValue = getLabelValue(rowId, 'test_4')
+            const newValue = currentValue === '' ? 'pass' : currentValue === 'pass' ? 'fail' : ''
+            handleLabelChange(rowId, 'test_4', newValue)
+          }
+          break
+        case '6':
+          event.preventDefault()
+          {
+            const currentValue = getLabelValue(rowId, 'test_5')
+            const newValue = currentValue === '' ? 'pass' : currentValue === 'pass' ? 'fail' : ''
+            handleLabelChange(rowId, 'test_5', newValue)
+          }
+          break
       }
     }
 
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [currentIndex, data.length])
+  }, [currentIndex, data, labels])
 
   const handleExport = () => {
     const exportData = data.map((row) => ({
@@ -228,8 +299,9 @@ function App() {
                 <div className="space-y-6">
                 {/* Complaint Label */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
+                  <label className="block text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
                     Complaint / Not Complaint
+                    <span className="text-xs font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">1</span>
                   </label>
                   <div className="flex gap-3">
                     {['complaint', 'not_complaint'].map((option) => (
@@ -257,8 +329,9 @@ function App() {
                 {/* Test Labels */}
                 {[1, 2, 3, 4, 5].map((testNum) => (
                   <div key={testNum}>
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">
+                    <label className="block text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
                       Test {testNum}
+                      <span className="text-xs font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">{testNum + 1}</span>
                     </label>
                     <div className="flex gap-3">
                       {['pass', 'fail'].map((option) => (
@@ -302,8 +375,11 @@ function App() {
               >
                 Previous
               </button>
-              <div className="text-sm text-gray-600 font-medium hidden sm:block">
-                Use keyboard arrow keys to navigate
+              <div className="text-sm text-gray-600 font-medium hidden sm:block text-center">
+                <div>Arrow keys to navigate</div>
+                <div className="text-xs text-gray-500 mt-1">
+                  1: Complaint | 2-6: Tests
+                </div>
               </div>
               <button
                 onClick={handleNext}
