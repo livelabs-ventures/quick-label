@@ -4,19 +4,19 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900;
-    color: #111827; /* Fallback text color */
+    background-color: #f9fafb;
+    color: #111827;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    color: #111827; /* Ensure headings are visible */
+    color: #111827;
   }
   
   p, span, div {
-    color: inherit; /* Inherit from parent */
+    color: inherit;
   }
   
   button {
-    color: inherit; /* Buttons inherit text color */
+    color: inherit;
   }
 }
